@@ -1,0 +1,33 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+   <h1>Transaksi Nasabah</h1>
+    <p>Kode transaksi : 1. Isi Saldo 2. Tranfer Keluar 3. Transfer Masuk</p>
+   <div class="table-responsive">
+        <table id="transaksi" class="table table-striped table-bordered">
+             <thead>
+             <tr>
+                  <td>ID Nasabah</td>
+                  <td>Rekening</td>
+                  <td>Kode Transaksi</td>
+                  <td>Jumlah Transaksi</td>
+                  <td>Waktu Transaksi</td>
+             </tr>
+             </thead>
+             <tbody>
+               {% for row in value %}
+               <tr>
+                   <td align="center">{{row[1]}}</td>
+                   <td align="center">{{row[4]}}</td>
+                   <td align="center">{{row[3]}}</td>
+                   <td align="center">{{row[5]}}</td>
+                   <td align="center">{{row[2]}}</td>
+               </tr>
+               {% endfor %}
+             </tbody>
+        </table>
+   </div>
+</div>
+
+{% endblock %}

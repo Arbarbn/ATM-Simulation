@@ -1,0 +1,11 @@
+
+
+
+User     IDCArd     PIN
+1
+2       13216072    222222
+3       13216073    333333
+4       13216079    444444
+
+Server 	Username	Password
+1		arba		test165

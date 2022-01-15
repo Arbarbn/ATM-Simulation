@@ -1,0 +1,76 @@
+{% extends "home.html" %}
+
+{% block content %}
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 10px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=tel]{
+    width: 100%;
+    padding: 15px;
+    margin: 2px 0;
+    display: inline-block;
+    border: #2f3940;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+input[type=submit]:focus{
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px #2f3940;
+}
+
+</style>
+
+<form action="{{ url_for('register') }}" method="post" autocomplete="off">
+  <div class="container">
+    <h1>Register Nasabah</h1>
+    <p>Silakan isi data untuk mendaftarkan akun nasabah yang baru.</p>
+    <hr>
+        <label for="nama"><b>Nama</b></label>
+        <input type="text" placeholder="Masukan Nama" name="nama" required>
+
+        <label for="rekening"><b>No Rekening</b></label>
+        <input type="text" placeholder="Masukan No Rekening" name="rekening" onkeypress="return onlyNumberKey(event)" maxlength="8" required>
+
+        <label for="PIN"><b>PIN</b></label>
+        <input type="password" placeholder="Masukan PIN" name="PIN" onkeypress="return onlyNumberKey(event)" maxlength="6" onkeyup='check();' required >
+
+        <label for="telepon"><b>Nomor HP</b></label>
+        <input type="tel" placeholder="Masukan Nomor HP" name="telepon" onkeypress="return onlyNumberKey(event)" maxlength="12" required>
+
+        <input type="submit" value="Register">
+        <div class="msg">{{ msg }}</div>
+    <hr>
+    <script>
+    function onlyNumberKey(evt) {
+
+        // Only ASCII charactar in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+    </script>
+
+  </div>
+</form>
+{% endblock %}
+

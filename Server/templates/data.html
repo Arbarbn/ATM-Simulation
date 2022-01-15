@@ -1,0 +1,76 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+   <h1>Data Nasabah</h1>
+   <div class="table-responsive">
+        <table id="nasabah" class="table table-striped table-bordered">
+             <thead>
+             <tr>
+                  <td>ID Nasabah</td>
+                  <td>Rekening</td>
+                  <td>Nama</td>
+                  <td>No Telepon</td>
+                  <td>Tanggal Registrasi</td>
+                  <td>Aksi</td>
+             </tr>
+             </thead>
+             <tbody>
+             {% for row in value %}
+             <tr>
+                   <td align="center">{{row[0]}}</td>
+                   <td align="center">{{row[1]}}</td>
+                   <td align="center">{{row[2]}}</td>
+                   <td align="center">{{row[3]}}</td>
+                   <td align="center">{{row[4]}}</td>
+                   <td>
+                        <a href="#!" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalEdit{{ row[0] }}">Edit</a>
+                        <a href="/hapus/{{ row[0] }}" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin hapus?')">Hapus</a>
+                   </td>
+             </tr>
+             <div id="modalEdit{{ row[0] }}" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Edit Data</h4>
+                         </div>
+                         <div class="modal-body">
+                         <form action="{{ url_for('update') }}" method="POST">
+                             <div class="form-group">
+                                 <label>Nama:</label>
+                                 <input type="hidden" name="id" value="{{ row[0] }}">
+                                 <input type="text" class="form-control" name="nama" value="{{ row[2] }}">
+                                 <label>No Telepon:</label>
+                                 <input type="tel" class="form-control" name="telepon" onkeypress="return onlyNumberKey(event)" value="{{ row[3] }}">
+                             </div>
+                             <script>
+                                function onlyNumberKey(evt) {
+                                    var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+                                    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                                        return false;
+                                    return true;
+                                }
+                             </script>
+                             <div class="form-group">
+                                <button class="btn btn-warning" type="submit">Update</button>
+                             </div>
+                         </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             {% else %}
+             <tr>
+                 <td colspan="3">Unbelievable. No entries here so far</td>
+             </tr>
+             {% endfor %}
+             </tbody>
+        </table>
+   </div>
+</div>
+
+{% endblock %}
